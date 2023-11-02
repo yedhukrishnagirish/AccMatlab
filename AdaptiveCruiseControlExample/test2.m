@@ -45,6 +45,8 @@ function updateSpeed
 
     % Speed Label at the top
     % Speed Label closer to the top center
+   
+    
     handles.speedLabel = uicontrol('Style', 'text', 'Position', [250, 350, 100, 30], 'String', ['Speed: ' num2str(handles.speed)]);
 
     % Increase Speed Button closer to the top center

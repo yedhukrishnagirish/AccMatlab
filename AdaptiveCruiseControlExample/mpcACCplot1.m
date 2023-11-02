@@ -27,7 +27,7 @@ function mpcACCplot1(logsout, D_default, t_gap, v_set, plotAxes)
         plot(plotAxes, time(i), v_ego_data(i), '.', 'Color', 'r', 'MarkerSize', 5);
         plot(plotAxes, time(i), v_lead_data(i), '.', 'Color', 'b', 'MarkerSize', 5);
         
-        disp(['Lead Car Velocity: ' num2str(v_lead_data(i)) ' m/s']);
+        %disp(['Lead Car Velocity: ' num2str(v_lead_data(i)) ' m/s']);
         
         grid(plotAxes, 'on');
         ylim(plotAxes, [0, 100]); % Set y-axis limit from 15 to 35
