@@ -33,13 +33,28 @@ function main
     assignin('base', 'x0_ego', x0_ego);
     assignin('base', 'v0_ego', v0_ego);
     assignin('base', 'v_set', v_set);
-
+    
+ 
     updateSpeed()
 end
 function updateSpeed
+    mdl = 'mpcACCsystem';
+    T = 80;
+    Ts = 0.1;
+    
+    t_gap = 1.4;
+    
+    
+    x0_lead = 50;
+    v0_lead = 25;
+
+    x0_ego = 10;
+    v0_ego = 20;
+
 
     fig = figure('Position', [100, 100, 600, 400]); 
 
+    handles.flag = false;
     handles.speed = 25;
     handles.fig = fig; % Store the figure handle in handles structure
 
@@ -60,15 +75,19 @@ function updateSpeed
     handles.plotAxes = axes('Parent', handles.fig, 'Position', [0.3, 0.1, 0.6, 0.4], 'XLim', [0, 50], 'YLim', [0, 100]);
     set(fig, 'UserData', handles);
     % Callback function to increase speed
+    sim(mdl)
+    mpcACCplot1(logsout, D_default, t_gap, v_set,plotAxes,handles);
 
 
     function increaseSpeed(~, ~)
         handles = get(handles.fig, 'UserData'); % Retrieve handles structure
         handles.speed = handles.speed + 3;
-        updatePlot(handles);
-        
+        %updatePlot(handles);
+        handles.flag = true;
         % Store the updated handles structure
         set(handles.fig, 'UserData', handles);
+        sim('mpcACCsystem');
+        mpcACCplot1(logsout, D_default, t_gap, v_set,plotAxes, handles);
     end
     % Callback function to decrease speed
     function decreaseSpeed(~, ~)
@@ -76,7 +95,7 @@ function updateSpeed
         handles = get(handles.fig, 'UserData'); % Retrieve handles structure
         if  handles.speed > 0 
              handles.speed = handles.speed - 3;
-             updatePlot(handles);
+            % updatePlot(handles);
         % Store the updated handles structure
              set(handles.fig, 'UserData', handles);
         end
@@ -86,10 +105,10 @@ function updateSpeed
         set(handles.speedLabel, 'String', ['Speed: ' num2str(handles.speed)]);
         % Print the speed value in the Command Window
         disp(['Current Speed: ' num2str(handles.speed)]);
-        runSimulation(handles.speed,handles.plotAxes)
+        runSimulation(handles.speed,handles.plotAxes,handles)
     end
 end
-function runSimulation(speed,plotAxes)
+function runSimulation(speed,plotAxes,handles)
     % Simulation code
     
     D_default = evalin('base', 'D_default');
@@ -111,6 +130,6 @@ function runSimulation(speed,plotAxes)
     sim(mdl);
     % Plot the simulation result
    
-    mpcACCplot1(logsout, D_default, t_gap, v_set,plotAxes);
+    mpcACCplot1(logsout, D_default, t_gap, v_set,plotAxes,handles);
     
 end

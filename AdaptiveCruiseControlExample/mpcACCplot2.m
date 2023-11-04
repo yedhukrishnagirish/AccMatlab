@@ -30,7 +30,7 @@ function mpcACCplot2(logsout, D_default, t_gap, v_set, plotAxesA,plotAxesV,plotA
 
     v_ego_data = v_ego.Values.Data;
     v_lead_data = v_lead.Values.Data;
-    v_set_data = v_set * ones(size(time));
+    %v_set_data = v_set * ones(size(time));
 
     d_rel_data = d_rel.Values.Data;
     d_safe_data = d_safe;
@@ -41,27 +41,27 @@ function mpcACCplot2(logsout, D_default, t_gap, v_set, plotAxesA,plotAxesV,plotA
 
     plot(plotAxesV, time, v_ego_data, '.', 'Color', 'r', 'MarkerSize', 5);
     plot(plotAxesV, time, v_lead_data, '.', 'Color', 'b', 'MarkerSize', 5);
+   % plot(plotAxesV, time, v_lead_datas, '.', 'Color', 'g', 'MarkerSize', 5);
 
     plot(plotAxesD, time, d_rel_data, '.', 'Color', 'r', 'MarkerSize', 5);
     plot(plotAxesD, time, d_safe_data, '.', 'Color', 'b', 'MarkerSize', 5);
-   % plot(plotAxes, time, v_set_data, '.', 'Color', 'g', 'MarkerSize', 5);
 
     grid(plotAxesA, 'on');
-    ylim(plotAxesA, [0, 100]); % Set y-axis limit from 0 to 100
+    ylim(plotAxesA, [-6, 6]); % Set y-axis limit from 0 to 100
     legend(plotAxesA, 'ego', 'lead', 'set', 'location', 'SouthEast');
     title(plotAxesA, 'Acceleration');
     xlabel(plotAxesA, 'time (sec)');
     ylabel(plotAxesA, '$m/s^2$', 'Interpreter', 'latex');
 
-     grid(plotAxesV, 'on');
-    ylim(plotAxesV, [0, 100]); % Set y-axis limit from 0 to 100
+    grid(plotAxesV, 'on');
+    ylim(plotAxesV, [0, 70]); % Set y-axis limit from 0 to 100
     legend(plotAxesV, 'ego', 'lead', 'set', 'location', 'SouthEast');
     title(plotAxesV, 'Velocity');
     xlabel(plotAxesV, 'time (sec)');
     ylabel(plotAxesV, '$m/s$', 'Interpreter', 'latex');
 
 
-     grid(plotAxesD, 'on');
+    grid(plotAxesD, 'on');
     ylim(plotAxesD, [0, 100]); % Set y-axis limit from 0 to 100
     legend(plotAxesD, 'ego', 'lead', 'set', 'location', 'SouthEast');
     title(plotAxesD, 'Distance');

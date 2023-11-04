@@ -24,9 +24,19 @@ function mpcACCplot1(logsout, D_default, t_gap, v_set, plotAxes)
     % Plot data point by point with dots and pause
     for i = 1:length(time)
         % Plot velocity data point by point with dots
-        plot(plotAxes, time(i), v_ego_data(i), '.', 'Color', 'r', 'MarkerSize', 5);
-        plot(plotAxes, time(i), v_lead_data(i), '.', 'Color', 'b', 'MarkerSize', 5);
-        
+
+        if handles.flag == true
+            
+             v_ego_data = v_ego.Values.Data;
+             v_lead_data = v_lead.Values.Data+3;
+             v_set_data = v_set * ones(size(time));
+             handles.flag = true
+              plot(plotAxes, time(i), v_ego_data(i), '.', 'Color', 'r', 'MarkerSize', 5);
+             plot(plotAxes, time(i), v_lead_data(i), '.', 'Color', 'b', 'MarkerSize', 5);
+        else
+             plot(plotAxes, time(i), v_ego_data(i), '.', 'Color', 'r', 'MarkerSize', 5);
+             plot(plotAxes, time(i), v_lead_data(i), '.', 'Color', 'b', 'MarkerSize', 5);
+        end
         %disp(['Lead Car Velocity: ' num2str(v_lead_data(i)) ' m/s']);
         
         grid(plotAxes, 'on');

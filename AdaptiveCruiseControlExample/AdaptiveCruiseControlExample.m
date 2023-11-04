@@ -38,8 +38,8 @@
 %% Simulink Model for Lead Car and Ego Car
 % The dynamics for lead car and ego car are modeled in Simulink. Open the
 % Simulink model.
-mdl = 'mpcACCsystem';
-open_system(mdl)
+mdl = 'mpcACCsystem1';
+%open_system(mdl)
 
 %%
 % To approximate a realistic driving environment, the acceleration of the
@@ -98,7 +98,7 @@ D_default = 10;
 
 %%
 % Specify the driver-set velocity in m/s.
-v_set = 30;
+v_set = 20;
 
 %%
 % Considering the physical limitations of the vehicle dynamics, the
@@ -115,11 +115,12 @@ amax_ego = 2;
 
 %% Simulation Analysis
 % Run the simulation.
+T = 1e6;
 sim(mdl)
 
 %%
 % Plot the simulation result.
-mpcACCplot(logsout,D_default,t_gap,v_set)
+%mpcACCplot(logsout,D_default,t_gap,v_set)
 
 %%
 % In the first 3 seconds, to reach the driver-set velocity, the ego car

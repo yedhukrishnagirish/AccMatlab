@@ -12,8 +12,8 @@ function main
     
     x0_lead = 50;
     v0_lead = 25;
-    x0_ego = 10;
-    v_set = 30;
+    x0_ego = 20;
+    v_set = 10;
     assignin('base', 'D_default', D_default);
     assignin('base', 'v0_ego', v0_ego);
     assignin('base', 'mdl', mdl);
@@ -24,7 +24,8 @@ function main
     assignin('base', 'v0_lead', v0_lead);
     assignin('base', 'x0_ego', x0_ego);
     assignin('base', 'v_set', v_set);
-    updateSpeed()
+    runSimulation(x0_ego)
+    %updateSpeed()
 end
 function updateSpeed
     fig = figure('Position', [100, 100, 300, 200]);
@@ -59,7 +60,7 @@ function updateSpeed
         set(handles.speedLabel, 'String', ['Speed: ' num2str(handles.speed)]);
         % Print the speed value in the Command Window
         disp(['Current Speed: ' num2str(handles.speed)]);
-        runSimulation(handles.speed)
+       % runSimulation(handles.speed)
     end
 end
 function runSimulation(speed)
